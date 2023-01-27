@@ -60,19 +60,21 @@ resource "aws_instance" "public-server" {
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.Allows-all.id]
-}
+
 tags = {
     Name = "Public-server"
   }
+}
 resource "aws_instance" "private-server" {
   ami           = "ami-00ff427d936335825"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.private.id
   vpc_security_group_ids = [aws_security_group.Allows-all.id]
-}
+
 tags = {
     Name = "Private-server"
   }
+}
 resource "aws_security_group" "Allows-all" {
   name        = "allows-all"
   description = "allow all security group"
