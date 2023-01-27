@@ -34,7 +34,7 @@ resource "aws_route_table_association" "public_subnet" {
 }
 
 resource "aws_nat_gateway" "test-nat" {
-  allocation_id = aws_eip.test-nat.id
+  allocation_id = aws_eip.test.id
   subnet_id     = aws_subnet.public.id
 }
 
@@ -60,14 +60,14 @@ resource "aws_instance" "public-server" {
   ami           = "ami-00ff427d936335825"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public.id
-  vpc_security_group_ids = [aws_security_group.example.id]
+  vpc_security_group_ids = [aws_security_group.Allows-all.id]
 }
 
 resource "aws_instance" "private-server" {
   ami           = "ami-00ff427d936335825"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.private.id
-  vpc_security_group_ids = [aws_security_group.example.id]
+  vpc_security_group_ids = [aws_security_group.Allows-all.id]
 }
 
 resource "aws_security_group" "Allows-all" {
