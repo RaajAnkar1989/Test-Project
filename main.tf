@@ -71,9 +71,10 @@ resource "aws_instance" "private-server" {
   subnet_id     = aws_subnet.private.id
   vpc_security_group_ids = [aws_security_group.Allows-all.id]
 
-tags = {
-    Name = "Private-server"
+  tags = {
+    Name = "Private-instance-${element(split(",",var.instance_names), count.index)}"
   }
+
 }
 resource "aws_security_group" "Allows-all" {
   name        = "allows-all"
