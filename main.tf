@@ -66,17 +66,17 @@ tags = {
   }
 
 }
-resource "aws_instance" "private-server" {
-  count = length(var.tags)
-  ami           = "ami-00e87074e52e6c9f9"
-  instance_type = "t2.micro"
-  subnet_id     = aws_subnet.private.id
-  vpc_security_group_ids = [aws_security_group.Allows-all.id]
+# resource "aws_instance" "private-server" {
+#   count = length(var.tags)
+#   ami           = "ami-00e87074e52e6c9f9"
+#   instance_type = "t2.micro"
+#   subnet_id     = aws_subnet.private.id
+#   vpc_security_group_ids = [aws_security_group.Allows-all.id]
 
-  tags = {
-    Name = var.tags[count.index]
-  }
-}
+#   tags = {
+#     Name = var.tags[count.index]
+#   }
+# }
 resource "aws_security_group" "Allows-all" {
   name        = "allows-all"
   description = "allow all security group"
