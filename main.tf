@@ -56,7 +56,7 @@ resource "aws_route_table_association" "private_subnet" {
 }
 
 resource "aws_instance" "public-server" {
-  ami           = "ami-00ff427d936335825"
+  ami           = "ami-00e87074e52e6c9f9"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.Allows-all.id]
@@ -68,7 +68,7 @@ tags = {
 }
 resource "aws_instance" "private-server" {
   count = length(var.tags)
-  ami           = "ami-00ff427d936335825"
+  ami           = "ami-00e87074e52e6c9f9"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.private.id
   vpc_security_group_ids = [aws_security_group.Allows-all.id]
