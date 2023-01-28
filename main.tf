@@ -62,19 +62,20 @@ resource "aws_instance" "public-server" {
   vpc_security_group_ids = [aws_security_group.Allows-all.id]
 
 tags = {
-    Name = "Public-server"
+    Name = "Public-Instance"
   }
+
 }
 resource "aws_instance" "private-server" {
+  count = length(var.tags)
   ami           = "ami-00ff427d936335825"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.private.id
   vpc_security_group_ids = [aws_security_group.Allows-all.id]
 
   tags = {
-    Name = "Private-instance-${element(split(",",var.instance_names), count.index)}"
+    Name = var.tags[count.index]
   }
-
 }
 resource "aws_security_group" "Allows-all" {
   name        = "allows-all"
