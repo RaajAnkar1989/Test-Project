@@ -62,7 +62,7 @@ resource "aws_instance" "public-server" {
   vpc_security_group_ids = [aws_security_group.Allows-all.id]
 
 tags = {
-    Name = "Public-Instance"
+    Name = "Frontend"
   }
 
 }
