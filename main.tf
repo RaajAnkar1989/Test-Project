@@ -56,7 +56,7 @@ resource "aws_route_table_association" "private_subnet" {
 }
 
 resource "aws_instance" "public-server" {
-  ami           = "ami-0b69c211b5c510432"
+  ami           = "ami-0e3aeafe193bbdd4a"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.Allows-all.id]
@@ -66,17 +66,17 @@ tags = {
   }
 
 }
-# resource "aws_instance" "private-server" {
-#   count = length(var.tags)
-#   ami           = "ami-0b69c211b5c510432"
-#   instance_type = "t2.micro"
-#   subnet_id     = aws_subnet.private.id
-#   vpc_security_group_ids = [aws_security_group.Allows-all.id]
+resource "aws_instance" "private-server" {
+   count = length(var.tags)
+   ami           = "ami-0e3aeafe193bbdd4a"
+   instance_type = "t2.micro"
+   subnet_id     = aws_subnet.private.id
+   vpc_security_group_ids = [aws_security_group.Allows-all.id]
 
-#   tags = {
-#     Name = var.tags[count.index]
-#   }
-# }
+   tags = {
+     Name = var.tags[count.index]
+   }
+ }
 resource "aws_security_group" "Allows-all" {
   name        = "allows-all"
   description = "allow all security group"
