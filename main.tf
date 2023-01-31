@@ -1,16 +1,19 @@
 resource "aws_vpc" "Test-vpc" {
   cidr_block = "10.0.0.0/16"
-}
+
 tags = {
     Name = "Test-vpc"
   }
+}
 
 resource "aws_internet_gateway" "test-igw" {
   vpc_id = aws_vpc.Test-vpc.id
-}
+
 tags = {
     Name = "Test-igw"
   }
+}
+
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.Test-vpc.id
   cidr_block              = "10.0.1.0/24"
