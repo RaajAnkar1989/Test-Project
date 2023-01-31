@@ -19,12 +19,19 @@ resource "aws_subnet" "public" {
   cidr_block              = "10.0.1.0/24"
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
+  
+  tags = {
+    Name = "Public-subnet"
+  }
 }
 
 resource "aws_subnet" "private" {
   vpc_id                  = aws_vpc.Test-vpc.id
   cidr_block              = "10.0.2.0/24"
   availability_zone       = "us-east-1a"
+ tags = {
+    Name = "Private-subnet"
+  }
 }
 
 resource "aws_route_table" "public" {
@@ -33,6 +40,9 @@ resource "aws_route_table" "public" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.test-igw.id
+  }
+   tags = {
+    Name = "Public-rt"
   }
 }
 
@@ -47,6 +57,10 @@ resource "aws_eip" "aws-eip" {
 resource "aws_nat_gateway" "test-nat" {
   allocation_id = aws_eip.aws-eip.id
   subnet_id     = aws_subnet.public.id
+  
+   tags = {
+    Name = "test-nat"
+  }
 }
 
 resource "aws_route_table" "private" {
@@ -55,6 +69,9 @@ resource "aws_route_table" "private" {
   route {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.test-nat.id
+  }
+   tags = {
+    Name = "private-rt"
   }
 }
 
